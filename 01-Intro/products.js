@@ -14,14 +14,25 @@ Array methods:
 
 1. find out all the stationary products
 
+const staionaryProducts = products.filter(product => product.category === 'stationary');
+
+
 2. find out the maximum cost from the product list
+
+const maxCost = products.reduce((result, product) => result > product.cost ? result : product.cost, 0);
 
 3. create a new array of products where the cost is discounted by 10%
 
+const discountedProducts = products.map(product => ({...product, cost : product.cost * 0.9}));
+
+
 4. find the sum of units 
+const totalUnits = products.reduce((result, product) => result + product.units, 0);
 
 5. print the following for each product
 		We have 20 units of pen at Rs.50 each
+
+products.forEach( ({units, name, cost}) => console.log(`We have ${units} units of ${name} at Rs.${cost} each`));
 
 
 Important Note :  DO NOT USE the FOR loop
