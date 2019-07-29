@@ -3,17 +3,61 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Calculator</title>
+	<script type="text/javascript">
+		
+		function add()
+		{
+			var n1=parseInt(document.getElementById("number1").value);
+			var n2=parseInt(document.getElementById("number2").value);
+			var n=n1+n2;
+			document.getElementById("divResult").innerText= n;
+		}
+
+		function subtract()
+		{
+			var n1=parseInt(document.getElementById("number1").value);
+			var n2=parseInt(document.getElementById("number2").value);
+			var n=n1-n2;
+			document.getElementById("divResult").innerText= n;
+		}
+
+		function multiply()
+		{
+			var n1=parseInt(document.getElementById("number1").value);
+			var n2=parseInt(document.getElementById("number2").value);
+			var n=n1*n2;
+			document.getElementById("divResult").innerText= n;
+		}
+
+		function divide()
+		{
+			var n1=parseInt(document.getElementById("number1").value);
+			var n2=parseInt(document.getElementById("number2").value);
+			var n=n1/n2;
+			document.getElementById("divResult").innerText= n;
+		}
+		
+		function init()
+		{	
+			document.getElementById("ad").addEventListener('click',add);
+			document.getElementById("sub").addEventListener('click',subtract);
+			document.getElementById("mul").addEventListener('click',multiply);
+			document.getElementById("divi").addEventListener('click',divide);
+		}
+
+		window.addEventListener('load',init);
+	</script>>
 </head>
 <body>
 	<h1>Calculator</h1>
 	<hr>
-	<input type="number" name="" id="">
-	<input type="number" name="" id="">
+	<input type="number" name="" id="number1">
+	<input type="number" name="" id="number2">
 	<br>
-	<input type="button" value="Add">
-	<input type="button" value="Subtract">
-	<input type="button" value="Multiply">
-	<input type="button" value="Divide">
+	<input type="button" value="Add" id="ad">
+	<input type="button" value="Subtract" id="sub">
+	<input type="button" value="Multiply" id="mul">
+	<input type="button" value="Divide" id="divi">
 	<div id="divResult">[result]</div>
 </body>
 </html>
