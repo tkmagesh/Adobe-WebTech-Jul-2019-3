@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Calculator</title>
+	<script>
+		class CalculatorModel {
+			n1  = 0;
+			n2 = 0;
+			result = 0;
+
+			add(){
+				this.result = this.n1 + this.n2;
+			}
+
+			subtract(){
+				this.result = this.n1 - this.n2;
+			}
+
+			multiply(){
+				this.result = this.n1 * this.n2;
+			}
+
+			divide(){
+				this.result = this.n1 / this.n2;
+			}
+		}
+
+		class CalculatorView{
+			model = undefined;
+
+			constructor(model){
+				this.model = model;
+			}
+
+			onTxtNumber1Change = (evt) => {
+				this.model.n1 = evt.target.valueAsNumber;
+			};
+
+			onTxtNumber2Change = (evt) => {
+				this.model.n2 = evt.target.valueAsNumber;
+			};
+
+			displayResult = () => {
+				document.getElementById('divResult')
+					.innerText = this.model.result;
+			};
+
+			onBtnClick = evt => {
+				let btnValue = evt.target.value,
+					methodName = btnValue.toLowerCase();
+				this.model[methodName]();
+				this.displayResult(); 
+			}
+
+
+			init = () => {
+				let txtNumber1 = document.getElementById('txtNumber1');
+				txtNumber1.addEventListener('change', this.onTxtNumber1Change);
+
+				let txtNumber2 = document.getElementById('txtNumber2');
+				txtNumber2.addEventListener('change', this.onTxtNumber2Change);
+
+				document.getElementById('btnAdd')
+					.addEventListener('click', this.onBtnClick);
+
+				document.getElementById('btnSubtract')
+					.addEventListener('click', this.onBtnClick);
+
+				document.getElementById('btnMultiply')
+					.addEventListener('click', this.onBtnClick);
+
+				document.getElementById('btnDivide')
+					.addEventListener('click', this.onBtnClick);
+
+			}
+		}
+
+		const model = new CalculatorModel();
+		const view = new CalculatorView(model);
+
+		window.addEventListener('load', () => {
+			view.init();
+		});
+
+	</script>
+</head>
+<body>
+	<h1>Calculator</h1>
+	<hr>
+	<input type="number" id="txtNumber1">
+	<input type="number" id="txtNumber2">
+	<br>
+	<input type="button" value="Add" id="btnAdd">
+	<input type="button" value="Subtract" id="btnSubtract">
+	<input type="button" value="Multiply" id="btnMultiply">
+	<input type="button" value="Divide" id="btnDivide">
+	<div id="divResult">[result]</div>
+</body>
+</html>

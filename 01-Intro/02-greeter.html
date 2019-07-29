@@ -4,16 +4,25 @@
 	<meta charset="UTF-8">
 	<title>Greeter</title>
 	<script>
-		function greetUser(){
+		function greetUser(evt){
+			console.dir(evt);
+			
 			var txtUserName = document.getElementById('txtUserName');
 			var greetMessage = 'Hi ' + txtUserName.value + ', Have a nice day!';
 			var divMessage = document.getElementById('divMessage');
 			divMessage.innerText = greetMessage;
 		}
 		
+		function onTxtChange(evt){
+			console.dir(evt);
+		}
+
 		function init(){
 			var btnGreet = document.getElementById('btnGreet');
 			btnGreet.addEventListener('click', greetUser);
+
+			document.getElementById('txtUserName')
+				.addEventListener('change', onTxtChange);
 		}
 
 		window.addEventListener('load', init);
