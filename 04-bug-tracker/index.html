@@ -67,6 +67,11 @@
   				let toggledBug = { ...bugToToggle, isClosed : !bugToToggle.isClosed};
   				let action = { type : 'REPLACE', payload : { oldBug : bugToToggle , newBug : toggledBug}};
   				return action;
+  			},
+  			removeClosed(bugs){
+  				let closedBugs = bugs.filter(bug => bug.isClosed);
+  				let action = { type : 'REMOVE_ALL', payload : closedBugs };
+  				return action;
   			}
   		}
 
@@ -78,6 +83,11 @@
   			if (action.type === 'REPLACE'){
   				let { oldBug, newBug } = action.payload;
   				let newState = currentState.map(bug => bug === oldBug ? newBug : bug);
+  				return newState;
+  			}
+  			if (action.type === 'REMOVE_ALL'){
+  				let bugsToRemove = action.payload;
+  				let newState = currentState.filter(bug => bugsToRemove.indexOf(bug) < 0);
   				return newState;
   			}
   			return currentState;
@@ -103,7 +113,7 @@
   			};
 
   			render(){
-  				let { bugs, addNew, toggle } = this.props,
+  				let { bugs, addNew, toggle, removeClosed } = this.props,
   					{ newBugName } = this.state;
 
   				let bugItems = bugs.map((bug,index) => (
@@ -139,7 +149,7 @@
 			  				<ol>
 			  					{bugItems}
 			  				</ol>
-			  				<input type="button" value="Remove Closed" />
+			  				<input type="button" value="Remove Closed" onClick={() => removeClosed(bugs)}/>
 			  			</section>
 			  		</div>
   				)
