@@ -106,28 +106,44 @@
   			);
   		};
 
+  		let BugStats = ({ bugs }) => {
+  			//to be refactored
+  			let closedBugCount = bugs.reduce((result, bug) => bug.isClosed ? ++result : result , 0);
+  			return(
+  				<section className="stats">
+	  				<span className="closed">{closedBugCount}</span>
+	  				<span> / </span>
+	  				<span>{bugs.length}</span>
+	  			</section>
+  			)
+  		}
 
-  		class BugTracker extends React.Component{
+  		class BugEdit extends React.Component{
   			state = {
   				newBugName : ''
   			};
-
   			render(){
-  				let { bugs, addNew, toggle, removeClosed } = this.props,
+  				let { addNew } = this.props,
   					{ newBugName } = this.state;
+  				return(
+  					<section className="edit">
+		  				<label htmlFor="">Add New : </label>
+		  				<input type="text" onChange={ evt => this.setState({ newBugName : evt.target.value})} />
+		  				<input type="button" value="Add New" onClick={ () => addNew(newBugName) }/>
+		  			</section>
+  				)
+  			}
+  		}
 
+  		class BugList extends React.Component{
+  			render(){
+  				let { bugs, toggle, removeClosed } = this.props;
   				let bugItems = bugs.map((bug,index) => (
   					<BugItem bug={bug} toggle={toggle} key={index}/>
   				));
-
   				return(
-  					<div>
-			  			<section className="stats">
-			  				<span className="closed">1</span>
-			  				<span> / </span>
-			  				<span>{bugs.length}</span>
-			  			</section>
-			  			<section className="sort">
+  					<React.Fragment>
+	  					<section className="sort">
 			  				<label htmlFor="">Order By :</label>
 			  				<select>
 			  					<option value=""></option>
@@ -140,17 +156,27 @@
 			  				<label htmlFor="">Search :</label>
 			  				<input type="text" />
 			  			</section>
-			  			<section className="eidt">
-			  				<label htmlFor="">Add New : </label>
-			  				<input type="text" onChange={ evt => this.setState({ newBugName : evt.target.value})} />
-			  				<input type="button" value="Add New" onClick={ () => addNew(newBugName) }/>
-			  			</section>
+			  			
 			  			<section className="list">
 			  				<ol>
 			  					{bugItems}
 			  				</ol>
 			  				<input type="button" value="Remove Closed" onClick={() => removeClosed(bugs)}/>
 			  			</section>
+			  		</React.Fragment>
+  				)
+  			}
+  		}
+
+
+  		class BugTracker extends React.Component{
+  			render(){
+  				let { bugs, addNew, toggle, removeClosed } = this.props;
+  				return(
+  					<div>
+			  			<BugStats bugs={bugs} />
+			  			<BugEdit addNew={addNew} />
+			  			<BugList {...{bugs, toggle, removeClosed}} />
 			  		</div>
   				)
   			}
