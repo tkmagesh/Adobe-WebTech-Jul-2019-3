@@ -47,7 +47,7 @@
 		}
 
 		function bindActionCreators(actionCreator, dispatch){
-			return {
+			/*return {
 				up(delta){
 					let action = actionCreator.up(delta);
 					dispatch(action);
@@ -56,7 +56,16 @@
 					let action = actionCreator.down(delta);
 					dispatch(action);
 				}
+			}*/
+
+			let dispatchers = {};
+			for(let key in actionCreator){
+				dispatchers[key] = function(...args){
+					let action = actionCreator[key](...args);
+					dispatch(action);
+				}
 			}
+			return dispatchers;
 		}
 
 		var store = SM.createStore(spinnerReducer);

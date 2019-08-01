@@ -46,22 +46,11 @@
 			return currentState;
 		}
 
-		function bindActionCreators(actionCreator, dispatch){
-			return {
-				up(delta){
-					let action = actionCreator.up(delta);
-					dispatch(action);
-				},
-				down(delta){
-					let action = actionCreator.down(delta);
-					dispatch(action);
-				}
-			}
-		}
+
 
 		var store = SM.createStore(spinnerReducer);
 
-		let actionDispatchers = bindActionCreators(spinnerActionCreators, store.dispatch);
+		let actionDispatchers = SM.bindActionCreators(spinnerActionCreators, store.dispatch);
 
 		function renderSpinner(){
 			let spinnerValue = store.getState();
