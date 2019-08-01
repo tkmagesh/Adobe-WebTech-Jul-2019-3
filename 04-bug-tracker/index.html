@@ -50,16 +50,43 @@
   	<script src="babel.min.js"></script>
   	<script src="react.development.js"></script>
   	<script src="react-dom.development.js"></script>
-  	<script src="babel.min.js"></script>
+  	<script src="redux.js"></script>
   	<script type="text/babel">
+
+  		let bugActionCreators = {
+  			addNew(bugName){
+  				let newBug = {
+  					name : bugName,
+  					isClosed : false,
+  					createdAt : new Date()
+  				};
+  				let action = { type : 'ADD_NEW' , payload : newBug };
+  				return action;
+  			}
+  		}
+
+  		function bugsReducer(currentState = [] , action){
+  			if (action.type === 'ADD_NEW'){
+  				let newState = [...currentState, action.payload];
+  				return newState;
+  			}
+  			return currentState;
+  		}
+
+
   		class BugTracker extends React.Component{
+  			state = {
+  				newBugName : ''
+  			};
+
   			render(){
+  				let { bugs } = this.props;
   				return(
   					<div>
 			  			<section className="stats">
 			  				<span className="closed">1</span>
 			  				<span> / </span>
-			  				<span>2</span>
+			  				<span>{bugs.length}</span>
 			  			</section>
 			  			<section className="sort">
 			  				<label htmlFor="">Order By :</label>
@@ -76,8 +103,8 @@
 			  			</section>
 			  			<section className="eidt">
 			  				<label htmlFor="">Add New : </label>
-			  				<input type="text" />
-			  				<input type="button" value="Add New" />
+			  				<input type="text" onChange={ evt => this.setState({ newBugName : evt.target.value})} />
+			  				<input type="button" value="Add New"/>
 			  			</section>
 			  			<section className="list">
 			  				<ol>
@@ -97,8 +124,17 @@
   			}
   		}
 
-  		ReactDOM.render(<BugTracker/>,
-  			document.getElementById('root'));
+  		let store = Redux.createStore(bugsReducer);
+
+  		let bugActionDispatchers = Redux.bindActionCreators(bugActionCreators, store.dispatch);
+  		
+  		function renderApp(){
+	  		let bugs = store.getState();
+	  		ReactDOM.render(<BugTracker {...bugActionDispatchers} bugs={bugs}/>,
+	  			document.getElementById('root'));
+	  	}
+	  	renderApp();
+	  	store.subscribe(renderApp);
 
   	</script>
   </head>
