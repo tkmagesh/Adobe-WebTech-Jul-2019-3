@@ -62,6 +62,11 @@
   				};
   				let action = { type : 'ADD_NEW' , payload : newBug };
   				return action;
+  			},
+  			toggle(bugToToggle){
+  				let toggledBug = { ...bugToToggle, isClosed : !bugToToggle.isClosed};
+  				let action = { type : 'REPLACE', payload : { oldBug : bugToToggle , newBug : toggledBug}};
+  				return action;
   			}
   		}
 
@@ -70,8 +75,26 @@
   				let newState = [...currentState, action.payload];
   				return newState;
   			}
+  			if (action.type === 'REPLACE'){
+  				let { oldBug, newBug } = action.payload;
+  				let newState = currentState.map(bug => bug === oldBug ? newBug : bug);
+  				return newState;
+  			}
   			return currentState;
   		}
+
+  		let BugItem = (props) => {
+  			let { bug, toggle } = props;
+  			let bugStyle = 'bugname ' + (bug.isClosed ? 'closed' : '');
+  			return(
+  				<li>
+  					<span className={bugStyle} onClick={() => toggle(bug)}>
+  						{bug.name}
+  					</span>
+  					<div className="datetime"> {bug.createdAt.toString()} </div>
+  				</li>
+  			);
+  		};
 
 
   		class BugTracker extends React.Component{
@@ -80,21 +103,13 @@
   			};
 
   			render(){
-  				let { bugs, addNew } = this.props,
+  				let { bugs, addNew, toggle } = this.props,
   					{ newBugName } = this.state;
 
-  				let bugItems = bugs.map((bug,index) => {
-  					return(
-  						<li key={index}>
-	  						<span className="bugname">{bug.name}</span>
-	  						{
-	  							bug.isClosed ? 
-	  								(<div className="datetime closed">{bug.createdAt.toString()}</div>) 
-	  								: (<div className="datetime">{bug.createdAt.toString()}</div>) 
-	  						}
-	  					</li>
-  					)
-  				})
+  				let bugItems = bugs.map((bug,index) => (
+  					<BugItem bug={bug} toggle={toggle} key={index}/>
+  				));
+
   				return(
   					<div>
 			  			<section className="stats">
