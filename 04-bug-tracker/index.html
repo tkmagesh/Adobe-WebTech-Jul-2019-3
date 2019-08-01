@@ -1,0 +1,95 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+  	<meta charset="UTF-8">
+  	<title>Bug Tracker</title>
+  	<style>
+  		body{
+  			margin-left: 50px;
+  		}
+  		section{
+  			margin-bottom: 10px;
+  		}
+  		.stats, .bugname{
+  			font-size: 18pt;
+  		}
+  		.closed{
+  			color : red;
+  			text-decoration: line-through;
+  			font-style: italic;
+  			font-weight: bold;
+  		}
+  		ol{
+  			list-style: none;
+  			width: 500px;
+  			-webkit-padding-start : 0px;
+  		}
+  		li{
+  			margin-bottom: 10px;
+  			padding: 10px;
+  			border-radius: 5px;
+  			background-color: #e7e7e7;
+  			border: 2px solid gray;
+  		}
+  		.bugname{
+  			cursor : pointer;
+  		}
+  	</style>
+  	<script type="text/usecases">
+  		1. Add new bugs
+  		2. List the added bugs
+  		3. Toggle the 'closed' status of any bug
+  		4. Remove closed bugs
+  		5. Display stats ( # of closed bugs / total # of bugs )
+  		6. sort the bugs
+  		7. filter the bugs
+  		8. persist the bugs in the server
+  		9. categorize the bugs
+  		10. make the bugs accessible using unique urls
+  	</script>
+  </head>
+  <body>
+  	<h1>Bug Tracker</h1>
+  	<hr>
+  	<div id="root">
+  		<div>
+  			<section class="stats">
+  				<span class="closed">1</span>
+  				<span> / </span>
+  				<span>2</span>
+  			</section>
+  			<section class="sort">
+  				<label for="">Order By :</label>
+  				<select name="" id="">
+  					<option value=""></option>
+  					<option value=""></option>
+  				</select>
+  				<label for="">Descending ? :</label>
+  				<input type="checkbox" name="" id="">
+  			</section>
+  			<section class="filter">
+  				<label for="">Search :</label>
+  				<input type="text" name="" id="">
+  			</section>
+  			<section class="eidt">
+  				<label for="">Add New : </label>
+  				<input type="text" name="" id="">
+  				<input type="button" value="Add New">
+  			</section>
+  			<section class="list">
+  				<ol>
+  					<li>
+  						<span class="bugname">[This is bug - 1]</span>
+  						<div class="datetime">[Created At]</div>
+  					</li>
+  					<li>
+  						<span class="bugname closed">[This is bug - 2]</span>
+  						<div class="datetime">[Created At]</div>
+  					</li>
+  				</ol>
+  				<input type="button" value="Remove Closed">
+  			</section>
+  		</div>
+  	</div>
+  </body>
+  </html>
