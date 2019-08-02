@@ -1,6 +1,14 @@
-import bugsReducer from '../bugTracker/reducers'
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 
-let store = createStore(bugsReducer);
+import bugsReducer from '../bugTracker/reducers'
+import { projectsReducer } from '../projects';
+
+let rootReducer = combineReducers({
+	bugs : bugsReducer,
+	projects : projectsReducer
+});
+
+
+let store = createStore(rootReducer);
 
 export default store;

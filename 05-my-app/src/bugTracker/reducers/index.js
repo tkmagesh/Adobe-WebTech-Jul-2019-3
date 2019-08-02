@@ -1,4 +1,5 @@
 function bugsReducer(currentState = [] , action){
+	console.log('bugsReducer triggered');
 	if (action.type === 'ADD_NEW'){
 		let newState = [...currentState, action.payload];
 		return newState;

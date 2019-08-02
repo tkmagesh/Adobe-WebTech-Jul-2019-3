@@ -10,13 +10,22 @@ import appStore from './store'
 import BugTracker from './bugTracker';
 
 import * as bugActionCreators from './bugTracker/actions';
-
+import { projectActionCreators, ProjectTracker } from './projects';
 
 let bugActionDispatchers = bindActionCreators(bugActionCreators, appStore.dispatch);
-  		
+let projectActionDispatchers = bindActionCreators(projectActionCreators, appStore.dispatch);
+
 function renderApp(){
-	let bugs = appStore.getState();
-	ReactDOM.render(<BugTracker {...bugActionDispatchers} bugs={bugs}/>,
+	let storeState = appStore.getState();
+	let bugs = storeState.bugs,
+		projects = storeState.projects;
+
+	ReactDOM.render(
+		<div>
+			<BugTracker {...bugActionDispatchers} bugs={bugs}/>
+			<hr/>
+			<ProjectTracker projects={projects} {...projectActionDispatchers} />
+		</div>,
 		document.getElementById('root'));
 }
 renderApp();
