@@ -23,17 +23,16 @@ ReactDOM.render(
 		<Router>
 	      <div>
 	        <nav>
-	          <ul>
-	            <li>
-	              <Link to="/">Home</Link>
-	            </li>
-	            <li>
-	              <Link to="/bugs/">Bug Tracker</Link>
-	            </li>
-	            <li>
-	              <Link to="/projects/">Project Tracker</Link>
-	            </li>
-	          </ul>
+	            <span>
+	                &nbsp;<Link to="/">Home</Link>
+	            </span>
+	            <span>
+	                &nbsp;<Link to="/bugs/">Bug Tracker</Link>
+	            </span>
+	            <span>
+	              &nbsp;<Link to="/projects/">Project Tracker</Link>
+	            </span>
+	          
 	        </nav>
 
 	        <Route path="/" exact component={Index} />
