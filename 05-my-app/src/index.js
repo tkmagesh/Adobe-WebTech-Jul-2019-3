@@ -12,11 +12,14 @@ import BugTracker from './bugTracker';
 import * as bugActionCreators from './bugTracker/actions';
 import { projectActionCreators, ProjectTracker } from './projects';
 
+//creating the action dispatchers for all the components
 let bugActionDispatchers = bindActionCreators(bugActionCreators, appStore.dispatch);
 let projectActionDispatchers = bindActionCreators(projectActionCreators, appStore.dispatch);
 
 function renderApp(){
 	let storeState = appStore.getState();
+	
+	//data extraction for all the components
 	let bugs = storeState.bugs,
 		projects = storeState.projects;
 
