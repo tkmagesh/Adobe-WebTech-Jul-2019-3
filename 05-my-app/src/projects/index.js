@@ -17,7 +17,7 @@ export function projectsReducer(currentState = [], action){
 }
 
 class ProjectTracker extends Component{
-	state : {
+	state = {
 		newProjectName : '',
 		newProjectDesc : ''
 	};
