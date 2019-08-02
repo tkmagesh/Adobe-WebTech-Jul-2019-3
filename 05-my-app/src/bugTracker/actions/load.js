@@ -1,10 +1,9 @@
 import axios from 'axios';
+import { getAll } from '../services/bugApi';
 
 export function load(){
 	return function(dispatch){
-		axios
-			.get('http://localhost:3030/bugs')
-			.then(response => response.data)
+		getAll()		
 			.then(bugs => {
 				let action = { type : 'LOAD', payload : bugs};
 				dispatch(action);

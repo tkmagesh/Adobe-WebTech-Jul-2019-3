@@ -5,8 +5,8 @@ function bugsReducer(currentState = [] , action){
 		return newState;
 	}
 	if (action.type === 'REPLACE'){
-		let { oldBug, newBug } = action.payload;
-		let newState = currentState.map(bug => bug === oldBug ? newBug : bug);
+		let bugToReplace = action.payload;
+		let newState = currentState.map(bug => bug.id === bugToReplace.id ? bugToReplace : bug);
 		return newState;
 	}
 	if (action.type === 'REMOVE_ALL'){
@@ -14,8 +14,13 @@ function bugsReducer(currentState = [] , action){
 		let newState = currentState.filter(bug => bugsToRemove.indexOf(bug) < 0);
 		return newState;
 	}
+	if (action.type === 'REMOVE'){
+		let bugToRemove = action.payload;
+		let newState = currentState.filter(bug => bug.id !== bugToRemove.id);
+		return newState;
+	}
 	if (action.type === 'LOAD'){
-		return action.payload;
+		return [...action.payload];
 	}
 	return currentState;
 }
