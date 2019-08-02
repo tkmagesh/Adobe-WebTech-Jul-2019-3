@@ -12,6 +12,10 @@ import appStore from './store'
 import BugTracker from './bugTracker';
 import ProjectTracker from './projects';
 
+/*
+import axios from 'axios';
+window['axios'] = axios;
+*/
 
 function Index() {
   return <h2>Home</h2>;

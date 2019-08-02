@@ -1,4 +1,6 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+
+import thunk from 'redux-thunk';
 
 import bugsReducer from '../bugTracker/reducers'
 import { projectsReducer } from '../projects';
@@ -9,6 +11,6 @@ let rootReducer = combineReducers({
 });
 
 
-let store = createStore(rootReducer);
+let store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default store;
