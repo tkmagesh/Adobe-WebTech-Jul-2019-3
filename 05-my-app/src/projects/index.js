@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux'
 
 export let projectActionCreators = {
 	addNew(newProjectData){
@@ -15,7 +16,7 @@ export function projectsReducer(currentState = [], action){
 	return currentState;
 }
 
-export class ProjectTracker extends Component{
+class ProjectTracker extends Component{
 	state : {
 		newProjectName : '',
 		newProjectDesc : ''
@@ -59,3 +60,38 @@ export class ProjectTracker extends Component{
 
 	}
 }
+
+/*
+function mapStateToProps(storeState){
+	let projects = storeState.projects;
+	return { projects : projects }
+}
+*/
+
+/*
+function mapStateToProps({projects}){
+	return {projects};
+}
+*/
+
+/*
+let mapStateToProps = ({projects}) => ({projects});
+
+function mapDispatchToProps(dispatch){
+	return bindActionCreators(projectActionCreators, dispatch);
+}
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(ProjectTracker);
+*/
+
+export default connect(
+	({projects}) => ({projects}),
+	(dispatch) => bindActionCreators(projectActionCreators, dispatch)
+)(ProjectTracker);
+
+
+
+

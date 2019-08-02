@@ -1,38 +1,25 @@
 import ReactDOM from 'react-dom';  
 import React from 'react';
+import { Provider } from 'react-redux';
 
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import { bindActionCreators } from 'redux';
+
 import appStore from './store'
 import BugTracker from './bugTracker';
+import ProjectTracker from './projects';
 
-import * as bugActionCreators from './bugTracker/actions';
-import { projectActionCreators, ProjectTracker } from './projects';
-
-//creating the action dispatchers for all the components
-let bugActionDispatchers = bindActionCreators(bugActionCreators, appStore.dispatch);
-let projectActionDispatchers = bindActionCreators(projectActionCreators, appStore.dispatch);
-
-function renderApp(){
-	let storeState = appStore.getState();
-	
-	//data extraction for all the components
-	let bugs = storeState.bugs,
-		projects = storeState.projects;
-
-	ReactDOM.render(
+ReactDOM.render(
+	<Provider store={appStore}>
 		<div>
-			<BugTracker {...bugActionDispatchers} bugs={bugs}/>
+			<BugTracker/>
 			<hr/>
-			<ProjectTracker projects={projects} {...projectActionDispatchers} />
-		</div>,
-		document.getElementById('root'));
-}
-renderApp();
-appStore.subscribe(renderApp);
+			<ProjectTracker/>
+		</div>
+	</Provider>,
+	document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
